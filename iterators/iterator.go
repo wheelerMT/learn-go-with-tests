@@ -2,12 +2,10 @@ package iterators
 
 import "strings"
 
-const repeatCount = 5
-
-func Repeat(character string) string {
+func Repeat(character string, times int) string {
 	var repeated strings.Builder
 
-	for range repeatCount {
+	for range times {
 		repeated.WriteString(character)
 	}
 	return repeated.String()

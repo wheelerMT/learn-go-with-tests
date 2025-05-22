@@ -4,8 +4,9 @@ type Dictionary map[string]string
 type DictionaryErr string
 
 const (
-	ErrNotFound   = DictionaryErr("could not find the word you were looking for")
-	ErrWordExists = DictionaryErr("word already exists within the dictionary")
+	ErrNotFound         = DictionaryErr("could not find the word you were looking for")
+	ErrWordExists       = DictionaryErr("word already exists within the dictionary")
+	ErrWordDoesNotExist = DictionaryErr("word does not exist within the dictionary")
 )
 
 func (e DictionaryErr) Error() string {
@@ -25,6 +26,15 @@ func (d Dictionary) Add(word, definition string) error {
 	_, found := d[word]
 	if found {
 		return ErrWordExists
+	}
+	d[word] = definition
+	return nil
+}
+
+func (d Dictionary) Update(word, definition string) error {
+	_, found := d[word]
+	if !found {
+		return ErrWordDoesNotExist
 	}
 	d[word] = definition
 	return nil
